@@ -35,7 +35,7 @@ const ProfilePage = () => {
 
           </textarea>
 
-          <button type="submit" className='bg-gradient-to-r from-purple-400 to-violet-600 text-white py-2 rounded-full cursor-pointer text-lg'>
+          <button type="submit" className='bg-linear-to-r from-purple-400 to-violet-600 text-white py-2 rounded-full cursor-pointer text-lg'>
             Save Profile
           </button>   
         </form>
