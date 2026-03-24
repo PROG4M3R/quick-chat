@@ -11,7 +11,7 @@ const Sidebar = ({selectedUser,setSelectedUser}) => {
                 <img src = {assets.logo} alt = "Logo"  className = 'max-w-40'/>
                 <div className = 'relative py-2 group'>
                     <img src = {assets.menu_icon} alt = "Menu" className = 'max-h-5 cursor-pointer'/>
-                    <div className = 'absolute top-full right-0 z-20 w-32 p-5 rounded-md bg-[#282142] border border-gray-600 text-gray-100 hidden group-hover:block'>
+                    <div className = 'absolute top-full right-0 z-20 w-32 p-5 rounded-md bg-[#282142] border border-gray-600 text-gray-100 hidden  group-hover:block'>
 
                         <p onClick={() => navigate('/profile')} className='cursor-pointer text-sm'>Edit Profile</p>
                         <hr className = 'my2 border-t border-gray-500'/>
@@ -44,7 +44,7 @@ const Sidebar = ({selectedUser,setSelectedUser}) => {
                             : <span className='text-neutral-400 text-xs'>Offline</span>
                         }
                     </div>
-                    {index>2 && <p className = 'absolute top-4 right-4 text-xs h-5 w-5 flex justify-center items-center rounded-full bg-violet-500/50 '>{index}</p>}
+                    {index>2 && <p className = 'absolute top-4 right-4 text-xs h-5 w-5 flex justify-center items-center rounded-full bg-slate-950 '>{index}</p>}
                 </div>
             ))}
 
