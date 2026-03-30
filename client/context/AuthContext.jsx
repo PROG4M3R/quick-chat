@@ -21,8 +21,9 @@ export const AuthProvider = ({children}) => {
     //check if the user is authenticated and if so set the user data and connect to socket io server
 
     const checkAuth = async () => {
-
+        
         try {
+            if(!token) return
             const {data} = await axios.get("/api/auth/check")
 
             if(data.success) {
@@ -31,7 +32,6 @@ export const AuthProvider = ({children}) => {
             }
 
         } catch (error) {
-            
             toast.error(error.message)
         }
     }
@@ -51,9 +51,10 @@ export const AuthProvider = ({children}) => {
                 setToken(data.token)
                 toast.success(data.message)
             }
-            else
-            {                toast.error(data.message)
+            else{
+                toast.error(data.message)
             }
+            
         } catch (error) {
             toast.error(error.message)
         }
@@ -81,9 +82,7 @@ export const AuthProvider = ({children}) => {
             if(data.success) {
                 setAuthUser(data.user)
                 toast.success("Profile updated successfully")
-            } else {
-                toast.error(data.message)
-            }
+            } 
         } catch (error) {
             toast.error(error.message)
         }
