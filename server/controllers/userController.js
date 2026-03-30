@@ -43,6 +43,10 @@ export const login = async (req, res) => {
         const { email, password } = req.body
         const user = await User.findOne({ email })
 
+        if (!user) {
+            return res.status(400).json({ success: false, message: "Invalid email or password" })
+        }
+
         const isPasswordCorrect = await bcrypt.compare(password, user.password)
         if(!user || !isPasswordCorrect) {
             return res.status(400).json({ success: false, message: "Invalid email or password" })
@@ -81,7 +85,7 @@ export const updateProfile = async (req, res) => {
             const upload = await cloudinary.uploader.upload(profilePic, {
                 folder: "profile_pics"
             })
-            updatedUser = await User.findByIdAndUpdate(userId, { profilePic: upload.secure_url, bio, fullName }, { new: true })
+            updatedUser = await User.findByIdAndUpdate(userId, { profilePic: upload.secure_url, bio, fullName })
         }
 
         res.json({ success: true, user: updatedUser, message: "Profile updated successfully" })
