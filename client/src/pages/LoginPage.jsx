@@ -43,7 +43,7 @@ const LoginPage = () => {
     </h2>
 
       {currState === 'Sign Up' && !isDataSubmitted && (
-        <input onChange={(e) => setFullName(e.target.value)} value={fullName} type="text" className='p-2 border border-gray-500 rounded-mg focus:outline-none' placeholder='Full Name' required/>
+        <input onChange={(e) => setFullName(e.target.value)} value={fullName} type="text" className='p-2 border border-gray-500 rounded-md focus:outline-none' placeholder='Full Name' required/>
       )}
 
 
@@ -69,10 +69,15 @@ const LoginPage = () => {
       </button>
 
 
-      <div className='flex items-center gap-2 text-sm text-gray-500'>
+      {
+        currState === 'Sign Up' && (
+          <div className='flex items-center gap-2 text-sm text-gray-500'>
         <input type="checkbox" />
         <p>Agree to the terms of use and privacy policy</p>
       </div>
+        )
+      }
+      
 
 
       <div className='flex flex-col gap-2'>
