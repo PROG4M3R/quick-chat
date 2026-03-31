@@ -72,7 +72,7 @@ const ChatContainer = ({ showRightSidebar, setShowRightSidebar, showLeftSidebar,
         onClick={() => setShowRightSidebar((prev) => !prev)}
         src={assets.arrow_icon}
         alt="Toggle sidebar"
-        className={`cursor-pointer absolute top-3 right-3 z-10 w-7 cursor-pointer transition-transform ${showRightSidebar ? 'rotate-180' : ''}`}
+        className={`cursor-pointer absolute top-3 right-3 z-10 w-7 transition-transform ${showRightSidebar ? 'rotate-180' : ''}`}
       />
       {/* header */}
       <div className='flex items-center gap-3 py-3 mx-4 border-b border-stone-500'>
@@ -96,7 +96,7 @@ const ChatContainer = ({ showRightSidebar, setShowRightSidebar, showLeftSidebar,
             {msg.image ? (
               <img src = {msg.image} alt = "" className='max-w-57.5 border border-gray-700 rounded-lg overflow-hidden mb-8'/>
             ) : (
-              <p className={`p-2 max-w-50 md:text-sem font-light rounded-lg mb-8 whitespace-pre-wrap break-words bg-violet-500/20 text-white ${msg.senderId === authUser._id ? 'rounded-br-none' : 'rounded-bl-none'}`}>
+              <p className={`p-2 max-w-50 md:text-sem font-light rounded-lg mb-8 whitespace-pre-wrap wrap-break-word bg-violet-500/20 text-white ${msg.senderId === authUser._id ? 'rounded-br-none' : 'rounded-bl-none'}`}>
                 {msg.text}
               </p>
             )}
