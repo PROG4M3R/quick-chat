@@ -12,7 +12,7 @@ const ProfilePage = () => {
 
   const navigate = useNavigate()
   const [name, setName] = useState( authUser?.fullName || "martin johnson")
-  const [bio, setBio] = useState( authUser?.bio || "hello users, i am using Niche Chat")
+  const [bio, setBio] = useState( authUser?.bio || "hello users, i am using Quick Chat")
 
 
 
