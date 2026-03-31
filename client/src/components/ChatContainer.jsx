@@ -6,7 +6,7 @@ import { ChatContext } from '../../context/ChatContext';
 import { AuthContext } from '../../context/AuthContext';
 import toast from 'react-hot-toast';
 
-const ChatContainer = ({ showRightSidebar, setShowRightSidebar }) => {
+const ChatContainer = ({ showRightSidebar, setShowRightSidebar, showLeftSidebar, setShowLeftSidebar }) => {
 
   const {authUser,onlineUsers} = useContext(AuthContext)
   const {selectedUser, messages, setSelectedUser, sendMessage, getMessages} = useContext(ChatContext)
@@ -67,15 +67,21 @@ const ChatContainer = ({ showRightSidebar, setShowRightSidebar }) => {
   }, [messages])
 
   return selectedUser ? ( 
-    <div className='h-full overflow-scroll relative backdrop-blur-lg'>
+    <div className='bg-[#818582]/10 h-full overflow-scroll relative backdrop-blur-lg'>
       <img
         onClick={() => setShowRightSidebar((prev) => !prev)}
         src={assets.arrow_icon}
         alt="Toggle sidebar"
-        className={`absolute top-3 right-3 z-10 w-7 cursor-pointer transition-transform ${showRightSidebar ? 'rotate-180' : ''}`}
+        className={`cursor-pointer absolute top-3 right-3 z-10 w-7 cursor-pointer transition-transform ${showRightSidebar ? 'rotate-180' : ''}`}
       />
       {/* header */}
       <div className='flex items-center gap-3 py-3 mx-4 border-b border-stone-500'>
+        <img
+          onClick={() => setShowLeftSidebar((prev) => !prev)}
+          src={assets.arrow_icon}
+          alt="Toggle users"
+          className={` cursor-pointer md:hidden w-7  transition-transform ${showLeftSidebar ? '' : 'rotate-180'}`}
+        />
         <img src={selectedUser.profilePic || assets.avatar_icon
         } alt="" className = 'w-8 h-8 aspect-square object-cover rounded-full shrink-0' />
         <p className = 'flex-1 text-lg text-white flex items-center gap-2'>
@@ -96,8 +102,8 @@ const ChatContainer = ({ showRightSidebar, setShowRightSidebar }) => {
             )}
 
             <div className='text-center  text-xs'>
-              <img src={msg.senderId === authUser._id ? authUser?.profilePic || assets.avatar_icon : selectedUser?.profilePic || assets.avatar_icon} alt="" className='w-7 h-7 aspect-square object-cover rounded-full shrink-0'/>
-              <p className='text-gray-500 pt-1'>
+              <img src={msg.senderId === authUser._id ? authUser?.profilePic || assets.avatar_icon : selectedUser?.profilePic || assets.avatar_icon} alt="" className=' w-7 h-7 aspect-square object-cover rounded-full shrink-0'/>
+              <p className='text-white/50 pt-1'>
                 {formatMessageTime(msg.createdAt)}
               </p>
             </div>  
@@ -121,11 +127,11 @@ const ChatContainer = ({ showRightSidebar, setShowRightSidebar }) => {
           />
           <input onChange={handleSendImage} type="file"  id = "image" accept="image/png, image/jpeg" hidden/>
           <label htmlFor="image">
-            <img src={assets.gallery_icon} alt=""  className='w-5 mr-2 cursor-pointer'/>
+            <img src={assets.gallery_icon} alt="" className='w-5 mr-2 cursor-pointer hover:ring-2 hover:ring-white rounded'/>
           </label>
         </div>
 
-      <img onClick={handleSendMessage} src= {assets.send_button} alt="" className='w-7 cursor-pointer' />
+      <img onClick={handleSendMessage} src= {assets.send_button} alt="" className='w-9 cursor-pointer hover:ring-2 hover:ring-white rounded-full' />
       </div>
 
     </div>
