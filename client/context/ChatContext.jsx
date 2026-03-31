@@ -55,7 +55,7 @@ export const ChatProvider = ({children}) => {
         try {
             const {data} = await axios.post(`/api/messages/send/${selectedUser._id}`, messageData)
             if(data.success) {
-                setMessages(prev => [...prev, data.message])
+                setMessages(prev => [...prev, data.newMessage])
             }
         }
         catch (error) {
@@ -98,7 +98,7 @@ export const ChatProvider = ({children}) => {
         return () => {
             unsubscribeFromMessages()
         }
-    }, [selectedUser,socket])
+    }, [selectedUser,socket,unsubscribeFromMessages])
 
 
 
