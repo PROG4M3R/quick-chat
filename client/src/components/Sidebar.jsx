@@ -1,6 +1,6 @@
 import assets from '../assets/assets'
 import { useNavigate } from 'react-router-dom'
-import { useContext, useState } from 'react'
+import { useContext, useRef, useState } from 'react'
 import { AuthContext } from '../../context/AuthContext'
 import { ChatContext } from '../../context/ChatContext'
 import { useEffect } from 'react'
@@ -14,6 +14,8 @@ const Sidebar = () => {
 
 
     const [input, setInput] = useState('')
+    const [isMenuOpen, setIsMenuOpen] = useState(false)
+    const menuRef = useRef(null)
 
 
     const  navigate = useNavigate();
@@ -24,6 +26,22 @@ const Sidebar = () => {
         getUsers()
     }, [onlineUsers])
 
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (menuRef.current && !menuRef.current.contains(event.target)) {
+                setIsMenuOpen(false)
+            }
+        }
+
+        document.addEventListener('mousedown', handleClickOutside)
+        return () => document.removeEventListener('mousedown', handleClickOutside)
+    }, [])
+
+    const handleMenuAction = (callback) => {
+        setIsMenuOpen(false)
+        callback()
+    }
+
 
 
   return (
@@ -31,13 +49,19 @@ const Sidebar = () => {
         <div className = 'pb-5'>
             <div className = 'flex justify-between items-center'>
                 <img src = {assets.logo} alt = "Logo"  className = 'max-w-40'/>
-                <div className = 'relative py-2 group'>
-                    <img src = {assets.menu_icon} alt = "Menu" className = 'max-h-5 cursor-pointer'/>
-                    <div className = 'absolute top-full right-0 z-20 w-32 p-5 rounded-md bg-[#282142] border border-gray-600 text-gray-100 hidden  group-hover:block'>
+                <div ref={menuRef} className = 'relative '>
+                    <button
+                        type='button'
+                        onClick={() => setIsMenuOpen((prev) => !prev)}
+                        className='rounded-full p-2 hover:bg-white/15 transition-colors duration-200 cursor-pointer'
+                    >
+                        <img src = {assets.menu_icon} alt = "Menu" className = 'max-h-5'/>
+                    </button>
+                    <div className = {`absolute top-full right-0 z-20 w-32 p-3 rounded-md bg-[#282142] border border-gray-600 text-gray-100 text-center ${isMenuOpen ? 'block' : 'hidden'}`}>
 
-                        <p onClick={() => navigate('/profile')} className='cursor-pointer text-sm'>Edit Profile</p>
-                        <hr className = 'my2 border-t border-gray-500'/>
-                        <p onClick={logout} className='cursor-pointer text-sm'>Logout</p>
+                        <p onClick={() => handleMenuAction(() => navigate('/profile'))} className='cursor-pointer text-sm'>Edit Profile</p>
+                        <hr className = 'my-2 border-t border-gray-500 '/>
+                        <p onClick={() => handleMenuAction(logout)} className='cursor-pointer text-sm'>Logout</p>
                     </div>
 
                 </div>

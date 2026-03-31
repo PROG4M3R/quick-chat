@@ -6,7 +6,7 @@ import { AuthContext } from '../../context/AuthContext'
 import { useState } from 'react'
 
 
-const RightSidebar = () => {
+const RightSidebar = ({ showRightSidebar }) => {
   const {selectedUser,messages} = useContext(ChatContext)
   const {logout,onlineUsers} = useContext(AuthContext)
 
@@ -21,7 +21,7 @@ const RightSidebar = () => {
   }, [messages])
 
 
-  return selectedUser && (
+  return selectedUser && showRightSidebar && (
     <div className= {`bg-[#8185B2]/10 text-white w-full relative overflow:y-scroll ${
       selectedUser? "max:md:hidden" : ""
     }`}>
